@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import * as S from './styled';
 import api from '../../services/api';
@@ -23,6 +24,9 @@ import ContentCenter from '../../components/ContentCenter';
 
 export default function Main() {
   const [openScoreInfo, setOpenScoreInfo] = useState(false);
+
+  const [loading, setLoading] = useState(true);
+
   const [user, setUser] = useState({
     id: '',
     name: '',
@@ -34,6 +38,7 @@ export default function Main() {
     async function loadUsers() {
       const { data } = await api.get('/users/1');
       setUser(data);
+      setLoading(false);
     }
 
     loadUsers();
@@ -48,21 +53,35 @@ export default function Main() {
   }
 
   async function handleTradeNow() {
+    setLoading(true);
+
     const { data } = await api.patch('/users/1', {
       score: 55,
     });
+
     setUser(data);
+    setLoading(false);
   }
 
   async function handleSeeOffer() {
+    setLoading(true);
+
     const { data } = await api.patch('/users/1', {
       score: 98,
     });
+
     setUser(data);
+    setLoading(false);
   }
 
   return (
-    <ScrollView style={{ marginBottom: 20 }}>
+    <ScrollView>
+      <Spinner
+        visible={loading}
+        textContent="Carregando..."
+        textStyle={{ color: '#fff' }}
+      />
+
       <HeaderBox score={user.score}>
         <HeaderProfile name={user.name} imgUri={user.image} />
       </HeaderBox>
@@ -143,7 +162,7 @@ export default function Main() {
 
             <CardEnterprise
               cover={ImgLogoXbox}
-              price="por R$79,00"
+              price="por apenas R$79,00"
               priceDiscount="R$ 280,00"
             />
 

@@ -12,7 +12,7 @@ export default function CardEnterprise({
 }) {
   return (
     <S.CardEnterprise>
-      <Image style={{ width: 102, height: 38 }} source={cover} />
+      <Image style={{ width: 95, height: 36 }} source={cover} />
 
       <View>
         {priceDesc !== '' && <S.PriceDesc>{priceDesc}</S.PriceDesc>}

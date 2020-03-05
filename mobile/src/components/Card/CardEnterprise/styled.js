@@ -8,7 +8,7 @@ export const CardEnterprise = styled.View`
 `;
 
 export const Price = styled.Text`
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 500;
   color: #656565;
   text-align: right;
